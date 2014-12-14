@@ -1,4 +1,6 @@
 <?php
+
+
 $program = new program();
 class program{
 	
@@ -61,20 +63,13 @@ class homepage extends page{
 	
 	function get(){
 		$this->content = '
-		<h1> IS 218 Final Project </h1>
-		<h2>College Data Project</h2>
-		<h3>Directory</h3>
-		<a href = "?page=Enrollment"> Colleges with the highest enrollments in 2011</a><br>
-		<a href = "http://web.njit.edu/~lw234/IS218/FinalProject/Index.php?page=TLiabilities">Colleges with the highest total liabilities in 2011</a><br>
-		<a href = "http://web.njit.edu/~lw234/IS218/FinalProject/Index.php?page=NAssets">Colleges with the highest net assets in 2011</a><br>
-		<a href = "http://web.njit.edu/~lw234/IS218/FinalProject/Index.php?page=NAPS"> Colleges with the highest net assets per student in 2011</a><br>
-		<a href = "http://web.njit.edu/~lw234/IS218/FinalProject/Index.php?page=LIE">Colleges with the largest increase in enrollment between 2011 and 2010</a><br>
-		
-		';
+		<h1>IS218 Final</h1>
+		<h3>Project</h3>
+		<a href = "?page=Enroll"> Colleges with the highest enrollments in 2011 : </a><br>';
 	}
 	
 }
-class Enrollment extends page{
+class Enroll extends page{
 	
 	function get(){
 		
@@ -83,10 +78,10 @@ class Enrollment extends page{
 		$user ="root";
 		$pass = 'password';
 		try{
-		$DBH = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
+		$DBH = new PDO("mysql:host=localhost;dbname=colleges", $user, $pass);
 		$DBH->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		
-		$STH = $DBH->query("SELECT college.Name, EN2011 FROM enrollment INNER JOIN college ON enrollment.UID = college.UID ORDER BY enrollment.EN2011 DESC ");
+		$STH = $DBH->query("SELECT college.Name, Enroll2011 FROM E2011 INNER JOIN college ON E2011.UNITID = college.UID ORDER BY E2011.Enroll2011 DESC");
 		
 		$this->content .= "<h1>Highest College Enrollment in 2011</h1><br>";
 		
@@ -101,7 +96,7 @@ class Enrollment extends page{
 		while($rows = $STH->fetch()){
 			$this->content .= "<tr>";
 			$this->content .= "<td>" . $rows['Name'] . "</td>";
-			$this->content .= "<td>" . $rows['EN2011'] . "</td>";
+			$this->content .= "<td>" . $rows['Enroll2011'] . "</td>";
 			$this->content .= "</tr>";
 		}
 		
@@ -115,4 +110,5 @@ class Enrollment extends page{
 		
 	}
 }
+
 ?>
