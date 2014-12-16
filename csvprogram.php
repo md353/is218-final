@@ -2,7 +2,7 @@
 ini_set('display_errors', 'On');
 error_reporting(E_ALL | E_STRICT);
 $csv = new CSVLoader();
-$data = $csv->openFile('effy2011.csv');
+$data = $csv->openFile('finance.csv');
 $csv->writeToDatabase($data);
 class CSVLoader{
 	
@@ -39,7 +39,7 @@ class CSVLoader{
 	public function writeToDatabase($records){
 		$host = "localhost";
 		$dbname = "colleges";
-		$table = "E2011";
+		$table = "Finance";
 		$user = 'root';
 		$pass = 'password';
 		try{
@@ -55,7 +55,7 @@ class CSVLoader{
 			
 			print_r($insert);
 			
-			$STH = $DBH->prepare("insert into $table values(?,?)");
+			$STH = $DBH->prepare("insert into $table values(?,?,?,?,?,?,?)");
 			$STH->execute($insert);	
 		}
 		
